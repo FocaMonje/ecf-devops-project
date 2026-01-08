@@ -1,0 +1,84 @@
+# ==================== TERRAFORM ====================
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+!example.tfvars
+crash.log
+override.tf
+override.tf.json
+
+# ==================== JAVA / MAVEN ====================
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/
+mvnw
+mvnw.cmd
+
+# ==================== SPRING BOOT ====================
+.springBeans
+.sts4-cache/
+
+# ==================== NODE / ANGULAR ====================
+node_modules/
+dist/
+npm-debug.log*
+yarn-error.log*
+.angular/
+.sass-cache/
+package-lock.json
+yarn.lock
+
+# ==================== IDE ====================
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+
+# ==================== OS ====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==================== DOCKER ====================
+.dockerignore
+
+# ==================== KUBERNETES ====================
+kubeconfig
+*.kubeconfig
+
+# ==================== AWS / SECRETS ====================
+*.pem
+*.key
+*.p12
+credentials.json
+.env
+.env.local
+secrets.yml
+
+# ==================== LOGS ====================
+*.log
+logs/
+
+# ==================== DATABASE ====================
+*.db
+*.sqlite
+*.sqlite3
+
+# ==================== BACKUP ====================
+*.bak
+*.backup
+*.old
+
+# ==================== TEMPORAL ====================
+temp/
+tmp/
+*.tmp
