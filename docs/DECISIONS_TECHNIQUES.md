@@ -33,6 +33,78 @@ Configuration Technique
  
     • IDE: VSCode avec extension Remote-WSL
 
+
+
+## Décision: AWS comme fournisseur cloud
+
+
+
+### La Décision
+
+
+Utiliser AWS (Amazon Web Services) comme fournisseur d'infrastructure cloud pour le cluster Kubernetes.
+
+
+
+### Justification
+
+
+
+**Raisons techniques:**
+
+
+
+- Líder du marché: AWS est le plus grand fournisseur cloud (32% du marché mondial)
+
+
+- EKS mature: Amazon EKS est un service Kubernetes géré très stable
+
+
+- Intégration native: Services comme Lambda, RDS, S3 s'intègrent parfaitement
+
+
+- Documentation abondante: Grande quantité de ressources et communauté active
+
+
+- Région européenne: eu-west-3 (Paris) disponible, conforme au RGPD
+
+
+
+**Alternatives considérées:**
+
+
+
+- Google Cloud (GKE): Excellent Kubernetes, mais moins de services complémentaires
+
+
+- Azure (AKS): Bonne option, mais moins de familiarité personnelle
+
+
+
+
+**Raison pratique:**
+
+
+
+- Crédits gratuits: AWS offre 200 USD en crédits, permettant de développer le projet sans coût personnel, ce qui est important dans un contexte académique.
+
+
+
+### Configuration Technique
+
+
+- Provider: AWS
+
+
+- Région: eu-west-3 (Paris)
+
+
+- Services: EKS, Lambda, RDS, S3, CloudWatch
+
+
+- IaC: Terraform avec AWS Provider
+
+
  
 
  Structure du Projet
