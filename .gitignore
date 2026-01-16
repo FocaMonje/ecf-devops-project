@@ -82,3 +82,9 @@ logs/
 temp/
 tmp/
 *.tmp
+# Lambda generated files
+*.zip
+
+# Nano backup files
+*.save
+*~
