@@ -104,6 +104,149 @@ Utiliser AWS (Amazon Web Services) comme fournisseur d'infrastructure cloud pour
 
 - IaC: Terraform avec AWS Provider
 
+## Décision: AWS Lambda pour l'authentification
+
+### La Décision
+Utiliser AWS Lambda comme fonction serverless pour valider les tokens d'authentification des requêtes API, intégrée avec API Gateway HTTP.
+
+### Justification
+
+**Raisons techniques:**
+
+- Serverless: Pas de gestion de serveurs, scaling automatique
+- Cost-effective: Paiement à l'usage, Free Tier généreux (1M requests/mois)
+- Faible latence: Réponse rapide pour validation de tokens
+- Intégration native: S'intègre parfaitement avec API Gateway
+- Isolation: Fonction dédiée, pas de dépendance avec l'infrastructure EKS
+- Simplicité: Code simple en Python, déploiement rapide avec Terraform
+
+**Architecture choisie:**
+
+- Runtime: Python 3.11 (stable, rapide, bien supporté)
+- Mémoire: 128 MB (suffisant pour validation de tokens)
+- Timeout: 3 secondes (largement suffisant)
+- API Gateway: HTTP API (plus simple et économique que REST API)
+- Route: GET /hello (pour démonstration, en production: POST /validate-token)
+
+**Alternatives considérées:**
+
+- Spring Boot microservice: Plus lourd, nécessite conteneur, coût plus élevé
+- Fonction dans le backend principal: Couplage fort, moins de flexibilité
+- AWS Cognito: Plus complexe, surcharge pour ce cas d'usage simple
+- Kong API Gateway: Installation et maintenance nécessaires
+
+**Raison pratique:**
+
+- Démonstration de compétences serverless
+- Complémentarité avec l'architecture EKS (microservices + serverless)
+- Coût nul (Free Tier)
+- Déploiement et test sans affecter l'infrastructure principale
+
+### Configuration Technique
+
+**Lambda Function:**
+```yaml
+Nom: ecf-hello-world
+Runtime: Python 3.11
+Handler: lambda_function.lambda_handler
+Mémoire: 128 MB
+Timeout: 3 secondes
+IAM Role: ecf_lambda_role (CloudWatch Logs permissions)
+Déclencheur: API Gateway
+```
+
+**API Gateway HTTP:**
+```yaml
+Nom: ecf-lambda-api
+Type: HTTP API
+Protocole: HTTP
+Route: GET /hello
+Intégration: AWS_PROXY (Lambda)
+CORS: Activé (origins: *)
+Autorisation: NONE (pour démonstration)
+Stage: $default (auto-deploy)
+```
+
+**Infrastructure as Code:**
+```
+Outil: Terraform
+Provider: AWS ~> 5.0
+Archive provider: ~> 2.0 (création automatique du ZIP)
+Fichiers:
+  - main.tf (configuration principale)
+  - variables.tf (région, nom de fonction)
+  - outputs.tf (URL API, ARN Lambda)
+  - lambda_function.py (code Python)
+```
+
+**Tests réalisés:**
+- Test dans AWS Console: Succès ✓
+- Test via API Gateway URL: Succès ✓
+- Vérification CloudWatch Logs: Logs présents ✓
+- Response JSON correcte: message, timestamp, path, method ✓
+
+**Résultat:**
+```json
+{
+  "message": "Hello World from Lambda!",
+  "timestamp": "2026-01-15T09:33:04.192070",
+  "path": "/hello",
+  "method": "GET"
+}
+```
+
+### Sécurité et Bonnes Pratiques
+
+**Implémentées:**
+- IAM Role avec principe de moindre privilège
+- CloudWatch Logs pour audit et debugging
+- Archivage automatique du code (terraform archive provider)
+- Variables d'environnement pour configuration
+- Tags pour identification (Project, Student, Environment)
+
+**Pour production (hors scope ECF):**
+- Authentification API Gateway (API Keys, Cognito, Lambda Authorizer)
+- Validation JWT réelle au lieu de validation basique
+- Rate limiting sur API Gateway
+- Encryption des variables d'environnement sensibles
+- VPC Lambda pour accès sécurisé aux ressources privées
+- Monitoring avec CloudWatch Alarms
+- X-Ray pour tracing distribué
+
+### Coût et Performance
+
+**Coût:**
+- Lambda: Gratuit (Free Tier: 1M requests/mois, 400,000 GB-secondes)
+- API Gateway: Gratuit (Free Tier: 1M requests/mois pendant 12 mois)
+- CloudWatch Logs: ~$0.50/GB (très peu de logs pour ce use case)
+- Coût total pour le projet ECF: $0
+
+**Performance:**
+- Cold start: ~100-200ms (première invocation)
+- Warm execution: ~10-50ms
+- Latency totale avec API Gateway: <200ms
+- Suffisant pour validation d'authentification
+
+### Évolution Future
+
+**Extensions possibles:**
+- Validation JWT complète avec bibliothèque python-jose
+- Vérification de claims (expiration, issuer, audience)
+- Cache des tokens validés (ElastiCache Redis)
+- Intégration avec base de données utilisateurs (DynamoDB)
+- Logging structuré avec contexte de requête
+- Métriques personnalisées (taux de succès/échec)
+
+**Intégration avec le projet:**
+- Utilisation par l'API Spring Boot pour valider les requêtes
+- Frontend Angular envoie token dans header Authorization
+- Lambda valide et retourne user context
+- API Spring Boot utilise le context pour autorisation
+
+---
+
+
+
 
  
 
