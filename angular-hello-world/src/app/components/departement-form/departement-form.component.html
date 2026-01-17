@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Modifier Département' : 'Nouveau Département' }}</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <form (ngSubmit)="onSubmit()" #departementForm="ngForm">
+    <div class="form-group">
+      <label for="nom">Nom *</label>
+      <input 
+        type="text" 
+        id="nom" 
+        name="nom"
+        [(ngModel)]="departement.nom" 
+        required
+        #nom="ngModel"
+        class="form-control"
+      >
+      <div *ngIf="nom.invalid && nom.touched" class="validation-error">
+        Le nom est obligatoire
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea 
+        id="description" 
+        name="description"
+        [(ngModel)]="departement.description" 
+        rows="4"
+        class="form-control"
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        [disabled]="departementForm.invalid || loading"
+        class="btn btn-primary"
+      >
+        {{ loading ? 'Enregistrement...' : (isEditMode ? 'Modifier' : 'Créer') }}
+      </button>
+      <a routerLink="/departements" class="btn btn-secondary">Annuler</a>
+    </div>
+  </form>
+</div>

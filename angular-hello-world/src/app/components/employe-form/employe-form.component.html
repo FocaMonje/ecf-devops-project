@@ -1,0 +1,84 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Modifier Employé' : 'Nouvel Employé' }}</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <form (ngSubmit)="onSubmit()" #employeForm="ngForm">
+    <div class="form-group">
+      <label for="prenom">Prénom *</label>
+      <input 
+        type="text" 
+        id="prenom" 
+        name="prenom"
+        [(ngModel)]="employe.prenom" 
+        required
+        #prenom="ngModel"
+        class="form-control"
+      >
+      <div *ngIf="prenom.invalid && prenom.touched" class="validation-error">
+        Le prénom est obligatoire
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nom">Nom *</label>
+      <input 
+        type="text" 
+        id="nom" 
+        name="nom"
+        [(ngModel)]="employe.nom" 
+        required
+        #nom="ngModel"
+        class="form-control"
+      >
+      <div *ngIf="nom.invalid && nom.touched" class="validation-error">
+        Le nom est obligatoire
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email"
+        [(ngModel)]="employe.email" 
+        required
+        email
+        #email="ngModel"
+        class="form-control"
+      >
+      <div *ngIf="email.invalid && email.touched" class="validation-error">
+        <span *ngIf="email.errors?.['required']">L'email est obligatoire</span>
+        <span *ngIf="email.errors?.['email']">Format d'email invalide</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="poste">Poste *</label>
+      <input 
+        type="text" 
+        id="poste" 
+        name="poste"
+        [(ngModel)]="employe.poste" 
+        required
+        #poste="ngModel"
+        class="form-control"
+      >
+      <div *ngIf="poste.invalid && poste.touched" class="validation-error">
+        Le poste est obligatoire
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        [disabled]="employeForm.invalid || loading"
+        class="btn btn-primary"
+      >
+        {{ loading ? 'Enregistrement...' : (isEditMode ? 'Modifier' : 'Créer') }}
+      </button>
+      <a routerLink="/employes" class="btn btn-secondary">Annuler</a>
+    </div>
+  </form>
+</div>

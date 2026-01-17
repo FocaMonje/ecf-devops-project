@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Liste des Départements</h2>
+
+  <div class="actions">
+    <a routerLink="/departements/new" class="btn btn-primary">+ Nouveau Département</a>
+    <a routerLink="/" class="btn btn-secondary">← Retour</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Chargement...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error">
+    <table class="table" *ngIf="departements.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let departement of departements">
+          <td>{{ departement.id }}</td>
+          <td>{{ departement.nom }}</td>
+          <td>{{ departement.description || '-' }}</td>
+          <td class="actions-cell">
+            <a [routerLink]="['/departements/edit', departement.id]" class="btn btn-small btn-edit">Éditer</a>
+            <button (click)="deleteDepartement(departement.id)" class="btn btn-small btn-delete">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="departements.length === 0" class="no-data">
+      Aucun département trouvé. <a routerLink="/departements/new">Créer le premier département</a>
+    </div>
+  </div>
+</div>

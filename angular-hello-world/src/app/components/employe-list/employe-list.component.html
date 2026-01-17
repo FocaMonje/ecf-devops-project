@@ -1,0 +1,43 @@
+<div class="container">
+  <h2>Liste des Employés</h2>
+
+  <div class="actions">
+    <a routerLink="/employes/new" class="btn btn-primary">+ Nouvel Employé</a>
+    <a routerLink="/" class="btn btn-secondary">← Retour</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Chargement...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error">
+    <table class="table" *ngIf="employes.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Poste</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employe of employes">
+          <td>{{ employe.id }}</td>
+          <td>{{ employe.prenom }}</td>
+          <td>{{ employe.nom }}</td>
+          <td>{{ employe.email }}</td>
+          <td>{{ employe.poste }}</td>
+          <td class="actions-cell">
+            <a [routerLink]="['/employes/edit', employe.id]" class="btn btn-small btn-edit">Éditer</a>
+            <button (click)="deleteEmploye(employe.id)" class="btn btn-small btn-delete">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="employes.length === 0" class="no-data">
+      Aucun employé trouvé. <a routerLink="/employes/new">Créer le premier employé</a>
+    </div>
+  </div>
+</div>

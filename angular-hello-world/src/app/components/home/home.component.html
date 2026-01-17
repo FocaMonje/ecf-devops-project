@@ -1,0 +1,33 @@
+<div class="home-container">
+  <h1>{{ title }}</h1>
+  
+  <div class="welcome-card">
+    <h2>Bienvenue sur l'application InfoLine</h2>
+    <p>Application de gestion des employés et départements</p>
+  </div>
+
+  <div class="menu-grid">
+    <div class="menu-card">
+      <h3>👥 Employés</h3>
+      <p>Gérer la liste des employés</p>
+      <a routerLink="/employes" class="btn">Voir les employés</a>
+    </div>
+
+    <div class="menu-card">
+      <h3>🏢 Départements</h3>
+      <p>Gérer les départements</p>
+      <a routerLink="/departements" class="btn">Voir les départements</a>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h3>À propos</h3>
+    <p>Application développée avec Angular 19 et Spring Boot 3</p>
+    <ul>
+      <li>Frontend: Angular avec TypeScript</li>
+      <li>Backend: Spring Boot REST API</li>
+      <li>Base de données: PostgreSQL</li>
+      <li>Déploiement: Docker + Kubernetes (EKS)</li>
+    </ul>
+  </div>
+</div>
