@@ -31,7 +31,6 @@ npm-debug.log*
 yarn-error.log*
 .angular/
 .sass-cache/
-package-lock.json
 yarn.lock
 
 # ==================== IDE ====================
