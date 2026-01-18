@@ -14,7 +14,7 @@ terraform {
 
 provider "aws" {
   region = var.aws_region
-  
+
   default_tags {
     tags = {
       Project     = "ECF-DevOps-InfoLine"
@@ -28,7 +28,7 @@ provider "aws" {
 # IAM Role pour Lambda
 resource "aws_iam_role" "lambda_role" {
   name = "ecf_lambda_role"
-  
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -58,17 +58,17 @@ data "archive_file" "lambda_zip" {
 resource "aws_lambda_function" "ecf_lambda" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = "ecf-hello-world"
-  role            = aws_iam_role.lambda_role.arn
-  handler         = "lambda_function.lambda_handler"
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "lambda_function.lambda_handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
-  runtime         = "python3.11"
-  
+  runtime          = "python3.11"
+
   environment {
     variables = {
       ENVIRONMENT = "dev"
     }
   }
-  
+
   tags = {
     Name = "ecf-hello-world"
   }

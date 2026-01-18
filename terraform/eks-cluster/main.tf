@@ -8,7 +8,7 @@
 
 terraform {
   required_version = ">= 1.0"
-  
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -20,7 +20,7 @@ terraform {
 # Configuration du provider AWS
 provider "aws" {
   region = var.aws_region
-  
+
   default_tags {
     tags = {
       Project     = "ECF-DevOps-InfoLine"
@@ -81,7 +81,7 @@ module "eks" {
   eks_managed_node_groups = {
     general = {
       name = "infoline-node-group"
-      
+
       desired_size = 2
       min_size     = 1
       max_size     = 3
