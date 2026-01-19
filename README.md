@@ -37,17 +37,17 @@ InfoLine est une nouvelle agence qui cherche à se démarquer sur le marché de 
 ### AT 1 : Automatisation de l'infrastructure cloud
 Préparer l'infrastructure grâce à Infrastructure as Code:
 - [x] Structure du projet créée
-- [ ] Cluster Kubernetes (AWS EKS) avec Terraform
-- [ ] Service sans serveur (AWS Lambda) avec Terraform
-- [ ] Networking et sécurité configurés
+- [x] Cluster Kubernetes (AWS EKS) avec Terraform
+- [x] Service sans serveur (AWS Lambda) avec Terraform
+- [x] Networking et sécurité configurés
 
 ### AT 2 : Déploiement continu des applications
 Mettre en œuvre CI/CD pour les applications :
-- [ ] Application Java Spring Boot (Hello World)
-- [ ] Dockerisation de Spring Boot
-- [ ] Script de build/test/deploy
-- [ ] Application Angular (Hello World)
-- [ ] Pipeline CI/CD (GitHub Actions/CircleCI)
+- [x] Application Java Spring Boot (Hello World)
+- [x] Dockerisation de Spring Boot
+- [x] Script de build/test/deploy
+- [x] Application Angular (Hello World)
+- [x] Pipeline CI/CD (GitHub Actions/CircleCI)
 
 ### AT 3 : Supervision des services
 Mettre en place un suivi complet :
