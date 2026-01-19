@@ -190,7 +190,6 @@ cd monitoring
 ## Documentation
 
 - **[Decisions Techniques](docs/DECISIONS_TECHNIQUES.md)** - Justification des décisions architecturales
-- **[Guide de Commits](docs/COMMITS.md)** - Conventions et stratégie de commits *(à venir)*
 
 ---
 
