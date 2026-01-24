@@ -51,10 +51,10 @@ Mettre en œuvre CI/CD pour les applications :
 
 ### AT 3 : Supervision des services
 Mettre en place un suivi complet :
-- [ ] Elasticsearch déployé sur Kubernetes
-- [ ] Fluentd collectant logs
-- [ ] Kibana connecté à Elasticsearch
-- [ ] Queries et dashboards documentés
+- [x] Elasticsearch déployé sur Kubernetes
+- [x] Fluentd collectant logs
+- [x] Kibana connecté à Elasticsearch
+- [x] Queries et dashboards documentés
 
 ---
 
